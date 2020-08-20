@@ -21,6 +21,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         btnSignIn = (Button) findViewById(R.id.btnSignIn);
-        btnRegister = (Button) findViewById(R.id.btnRegister)
+        btnRegister = (Button) findViewById(R.id.btnRegister);
     }
 }
