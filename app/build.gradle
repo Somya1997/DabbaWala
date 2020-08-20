@@ -43,7 +43,7 @@ dependencies {
     //libraries addition
     implementation 'com.google.firebase:firebase-database:19.3.1'
 
-   // implementation 'uk.co.chrisgenx:calligraphy:2.3.0'
+//    implementation 'uk.co.chrisgenx:calligraphy:2.3.0'
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
     //noinspection GradleCompatible
     implementation 'com.android.support:design:22.2.0'
