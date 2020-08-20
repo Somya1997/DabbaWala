@@ -6,49 +6,46 @@
     android:layout_height="match_parent"
 
     >
-
-
     <LinearLayout
-        android:layout_width="371dp"
-        android:layout_height="404dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="150dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/edtEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/edtEmail"
             android:hint="Email"
             android:inputType="textEmailAddress"
             android:text=""
             android:textColor="@color/colorPrimary"
             android:textColorHint="@color/colorPrimary"
             android:textSize="20sp"
+            app:met_singleLineEllipsis="true"
             app:met_baseColor="@color/colorPrimary"
             app:met_floatingLabel="highlight"
             app:met_primaryColor="@color/colorPrimary"
-            app:met_singleLineEllipsis="true"
 
             />
-
         <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/edtPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/edtPassword"
             android:hint="Password"
             android:inputType="textPassword"
             android:text=""
             android:textColor="@color/colorPrimary"
             android:textColorHint="@color/colorPrimary"
             android:textSize="20sp"
+            app:met_singleLineEllipsis="true"
             app:met_baseColor="@color/colorPrimary"
             app:met_floatingLabel="highlight"
             app:met_primaryColor="@color/colorPrimary"
-            app:met_singleLineEllipsis="true"
 
             />
 
-    </LinearLayout>
 
+
+    </LinearLayout>
 </androidx.cardview.widget.CardView>
