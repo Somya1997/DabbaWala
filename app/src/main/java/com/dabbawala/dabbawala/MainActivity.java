@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -58,12 +59,70 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showLoginDialog() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle("SIGN IN");
+        dialog.setMessage("Please use email to Sign In");
+
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View login_layout = inflater.inflate(R.layout.layout_sigin,null);
+
+        final MaterialEditText edtEmail = login_layout.findViewById(R.id.edtEmail);
+        final MaterialEditText edtPassword = login_layout.findViewById(R.id.edtPassword);
+
+
+        dialog.setView(login_layout);
+        //set button
+        dialog.setPositiveButton("SIGN IN", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+
+                        //check Validation
+                        if (TextUtils.isEmpty(edtEmail.getText().toString())) {
+                            Snackbar.make(rootLayout, "Please enter your email address !", Snackbar.LENGTH_SHORT).show();
+                            return;
+                        }
+                        if (TextUtils.isEmpty(edtPassword.getText().toString())) {
+                            Snackbar.make(rootLayout, "Please enter your password !", Snackbar.LENGTH_SHORT).show();
+                            return;
+                        }
+                        if (edtPassword.getText().toString().length() < 6) {
+                            Snackbar.make(rootLayout, "Password too short !", Snackbar.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        //Login
+                        auth.signInWithEmailAndPassword(edtEmail.getText().toString(),edtPassword.getText().toString())
+                                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                                    @Override
+                                    public void onSuccess(AuthResult authResult) {
+                                        startActivity(new Intent(MainActivity.this,Welcome.class));
+                                        finish();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Snackbar.make(rootLayout, "Failed !"+e.getMessage(), Snackbar.LENGTH_SHORT).show();
+
+                            }
+                        });
+                    }
+                });
+            dialog.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
+
+            dialog.show();
     }
+
 
     private void showRegisterDialog() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle("REGISTER");
-        dialog.setMessage("Please use email to Sign In");
+        dialog.setMessage("Please use email to register");
 
         LayoutInflater inflater = LayoutInflater.from(this);
         View register_layout = inflater.inflate(R.layout.layout_register,null);
@@ -114,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
                                 user.setPhone(edtPhone.getText().toString());
 
                                 //use email as key
-                                users.child(edtEmail)
+                                users.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                         .setValue(user)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
