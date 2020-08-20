@@ -20,11 +20,51 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="257dp"
-            android:layout_height="wrap_content"
+            android:layout_width="377dp"
+            android:layout_height="291dp"
             android:layout_marginTop="1dp"
             app:srcCompat="@drawable/logo" />
     </LinearLayout>
+    <TextView
+        android:id="@+id/txt_rider_app"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:text="LOOKING FOR THE DELIVERY PARTNER APP ?"
+        android:textSize="14sp"
+        android:textColor="@color/bottomText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_above="@+id/txt_rider_app"
+        android:layout_margin="16dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <Button
+        android:id="@+id/btnSignIn"
+        android:text="SIGN IN"
+        android:background="@color/btnSignIn"
+        android:layout_marginTop="6dp"
+        android:textColor="@android:color/white"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"/>
 
+        <Button
+            android:id="@+id/btnRegister"
+            android:text="REGISTER"
+            android:background="@android:color/white"
+            android:layout_marginTop="6dp"
+            android:textColor="@color/btnRegister"
+            android:layout_marginLeft="6dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
 </RelativeLayout>
 
