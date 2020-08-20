@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "56037245293",
+    "firebase_url": "https://dabba-wala-54991.firebaseio.com",
+    "project_id": "dabba-wala-54991",
+    "storage_bucket": "dabba-wala-54991.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:56037245293:android:12a24fba30ebb07c671a64",
+        "android_client_info": {
+          "package_name": "com.dabbawala.dabbawala"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "56037245293-hpjsjmopaif0jl1r808pce639cefalld.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB83g4rj7Qe-Mpe9jvEzUO_xH0dsDngf_0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "56037245293-hpjsjmopaif0jl1r808pce639cefalld.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
