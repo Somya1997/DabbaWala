@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "308889884910",
+    "firebase_url": "https://dabbawala-65ec9.firebaseio.com",
+    "project_id": "dabbawala-65ec9",
+    "storage_bucket": "dabbawala-65ec9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:308889884910:android:1607e465ba1a78a245bbff",
+        "android_client_info": {
+          "package_name": "com.dabbawala.dabbawala"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "308889884910-71gnglsrqensb1fovdel7mtlcrc0sm7a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dabbawala.dabbawala",
+            "certificate_hash": "d7b75d1bf3957d8ac3a2c6dd51a755cf04e77725"
+          }
+        },
+        {
+          "client_id": "308889884910-q05hqo6n2kgrrv8irdqndhrqd6dk9pqn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtXgXBc_9GpzLoYWagVpey-CcBVpqXlX4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "308889884910-q05hqo6n2kgrrv8irdqndhrqd6dk9pqn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
