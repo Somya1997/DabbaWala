@@ -1,10 +1,5 @@
 {
   "project_info": {
-//
-//    "project_number": "56037245293",
-//    "firebase_url": "https://dabba-wala-54991.firebaseio.com",
-//    "project_id": "dabba-wala-54991",
-//    "storage_bucket": "dabba-wala-54991.appspot.com"
 
     "project_number": "308889884910",
     "firebase_url": "https://dabbawala-65ec9.firebaseio.com",
@@ -15,9 +10,7 @@
   "client": [
     {
       "client_info": {
-//<<<<<<< HEAD
-//        "mobilesdk_app_id": "1:56037245293:android:12a24fba30ebb07c671a64",
-//=======
+
         "mobilesdk_app_id": "1:308889884910:android:1607e465ba1a78a245bbff",
 
         "android_client_info": {
@@ -26,9 +19,7 @@
       },
       "oauth_client": [
         {
-//<<<<<<< HEAD
-//          "client_id": "56037245293-hpjsjmopaif0jl1r808pce639cefalld.apps.googleusercontent.com",
-//=======
+
           "client_id": "308889884910-71gnglsrqensb1fovdel7mtlcrc0sm7a.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -44,9 +35,7 @@
       ],
       "api_key": [
         {
-//<<<<<<< HEAD
-//          "current_key": "AIzaSyB83g4rj7Qe-Mpe9jvEzUO_xH0dsDngf_0"
-//=======
+
           "current_key": "AIzaSyCtXgXBc_9GpzLoYWagVpey-CcBVpqXlX4"
 
         }
@@ -55,9 +44,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-//<<<<<<< HEAD
-//              "client_id": "56037245293-hpjsjmopaif0jl1r808pce639cefalld.apps.googleusercontent.com",
-//=======
+
               "client_id": "308889884910-q05hqo6n2kgrrv8irdqndhrqd6dk9pqn.apps.googleusercontent.com",
 
               "client_type": 3
