@@ -61,13 +61,13 @@
                app:ball_release_color="@color/ballReleaseColor"
                app:ball_press_color="@android:color/white"
                />
+
             <Button
                 android:id="@+id/btn_find_user"
-                android:layout_width="match_parent"
+                android:layout_width="333dp"
                 android:layout_height="wrap_content"
-                android:text="FIND USER"
                 android:width="0dp"
-                />
+                android:text="FIND USER" />
 
 
         </LinearLayout>
