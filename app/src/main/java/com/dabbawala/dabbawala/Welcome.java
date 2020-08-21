@@ -47,6 +47,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
@@ -75,6 +76,7 @@ public class Welcome extends FragmentActivity implements OnMapReadyCallback {
     SupportMapFragment mapFragment;
     Marker mCurrent;
     MaterialAnimatedSwitch location_switch;
+    boolean first_time=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +99,7 @@ public class Welcome extends FragmentActivity implements OnMapReadyCallback {
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(@NonNull Location location) {
-                mMap.clear();
+//                mMap.clear();
                 lastKnownLocation = location;
                 displayLocation();
             }
@@ -169,8 +171,10 @@ public class Welcome extends FragmentActivity implements OnMapReadyCallback {
                                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.car))
                                     .position(new LatLng(latitude, longitude))
                                     .title("Your Location"));
-
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 15f));
+                            if(first_time) {
+                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 16f));
+                                first_time=false;
+                            }
 
                             //Draw animation Rotation
                             rotateMarker(mCurrent, -360, mMap);
@@ -185,7 +189,7 @@ public class Welcome extends FragmentActivity implements OnMapReadyCallback {
         final Handler handler = new Handler();
         final long start = SystemClock.uptimeMillis();
         final float startRotation = mCurrent.getRotation();
-        final long duration = 1500;
+        final long duration = 3500;
 
         final Interpolator interpolator = new LinearInterpolator();
         handler.post(new Runnable() {
