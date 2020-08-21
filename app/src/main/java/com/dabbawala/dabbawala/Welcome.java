@@ -21,6 +21,8 @@ import android.os.SystemClock;
 import android.util.Log;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.firebase.geofire.GeoFire;
@@ -41,6 +43,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseError;
@@ -78,6 +82,19 @@ public class Welcome extends FragmentActivity implements OnMapReadyCallback {
     MaterialAnimatedSwitch location_switch;
     boolean first_time=true;
 
+
+    //Car animation i,e route to destination
+    private  List<LatLng> polyLineList;
+    private Marker pickupLocationMarker;
+    private float v;
+    private double lat,lng;
+    private Handler handler;
+    private LatLng startPosition,endPosition,currentPosition;
+    private int index,next;
+    private Button btnGo;
+    private EditText edtPlace;
+    private PolylineOptions polylineOptions, blackPolyLineOptions;
+    private Polyline blackPolyLine,greyPolyLine;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
