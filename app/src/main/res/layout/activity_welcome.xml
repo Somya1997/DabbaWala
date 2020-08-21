@@ -6,25 +6,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
-        <LinearLayout
-            android:id="@+id/layout_panel"
-            android:orientation="horizontal"
+
+    <LinearLayout
+        android:id="@+id/layout_panel"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/edtPlace"
+            android:layout_width="1900dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="5"
+            android:hint="Enter Pickup Location" />
+
+        <Button
+            android:id="@+id/btnGo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <EditText
-                android:id="@+id/edtPlace"
-                android:hint="Enter Pickup Location"
-                android:layout_margin="10dp"
-                android:layout_weight="5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <Button
-                android:id="@+id/btnGo"
-                android:text="GO"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:text="GO" />
+    </LinearLayout>
         <fragment
             android:layout_below="@+id/layout_panel"
             android:id="@+id/map"
