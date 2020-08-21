@@ -28,7 +28,7 @@ public class Welcome extends FragmentActivity implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
+        
 
     }
 }
