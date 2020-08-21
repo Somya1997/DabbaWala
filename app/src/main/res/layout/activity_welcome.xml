@@ -15,7 +15,7 @@
 
         <EditText
             android:id="@+id/edtPlace"
-            android:layout_width="1900dp"
+            android:layout_width="1800dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="5"
@@ -24,7 +24,8 @@
         <Button
             android:id="@+id/btnGo"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="5dp"
             android:layout_weight="1"
             android:text="GO" />
     </LinearLayout>
@@ -47,7 +48,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:weightSum="10"
-            android:padding="16dp"
+            android:layout_margin="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -64,10 +65,13 @@
 
             <Button
                 android:id="@+id/btn_find_user"
-                android:layout_width="333dp"
+
+                android:layout_marginLeft="30dp"
+                android:layout_weight="7"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:width="0dp"
-                android:text="FIND USER" />
+                android:text="FIND USER"
+                />
 
 
         </LinearLayout>

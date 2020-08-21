@@ -384,12 +384,12 @@ public class Welcome extends FragmentActivity implements OnMapReadyCallback {
             LatLng p = new LatLng((int) (((double) lat /1E5)* 1E6), (int) (((double) lng/1E5   * 1E6)));
             poly.add(p);
         }
-
         for(int i=0;i<poly.size();i++){
             Log.i("Location", "Point sent: Latitude: "+poly.get(i).latitude+" Longitude: "+poly.get(i).longitude);
         }
         return poly;
     }
+
 
 
 
