@@ -3,6 +3,7 @@ package com.dabbawala.dabbawala;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
@@ -13,10 +14,11 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.Build;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.Toast;
@@ -28,6 +30,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApi;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.internal.GoogleApiAvailabilityCache;
+import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -48,28 +51,29 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class Welcome extends FragmentActivity implements OnMapReadyCallback{
+public class Welcome extends FragmentActivity implements OnMapReadyCallback {
+
 
     private GoogleMap mMap;
 
+    LocationManager locationManager;
+    LocationListener locationListener;
     //PLay Services
-    private static final int MY_PERMISSION_REQUEST_CODE=7000;
-    private static final int PLAY_SERVICES_RES_REQUEST=7001;
+    private static final int MY_PERMISSION_REQUEST_CODE = 7000;
+    private static final int PLAY_SERVICES_RES_REQUEST = 7001;
 
     private LocationRequest mLocationRequest;
-//    private GoogleApiClient mGoogleApiClient;
+
     private Location lastKnownLocation;
 
-    private static int UPDATE_INTERVAL=5000;
-    private static int FASTEST_INTERVAL=3000;
-    private static int DISPLACEMENT=10;
+    private static int UPDATE_INTERVAL = 5000;
+    private static int FASTEST_INTERVAL = 3000;
+    private static int DISPLACEMENT = 10;
 
     DatabaseReference drivers;
     GeoFire geoFire;
     SupportMapFragment mapFragment;
     Marker mCurrent;
-    LocationManager locationManager;
-    LocationListener locationListener;
     MaterialAnimatedSwitch location_switch;
 
     @Override
@@ -83,20 +87,18 @@ public class Welcome extends FragmentActivity implements OnMapReadyCallback{
         mapFragment.getMapAsync(this);
 
         //Init view
-        location_switch=(MaterialAnimatedSwitch)findViewById(R.id.location_switch);
-
-
+        location_switch = (MaterialAnimatedSwitch) findViewById(R.id.location_switch);
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        locationManager=(LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(@NonNull Location location) {
                 mMap.clear();
-                lastKnownLocation=location;
+                lastKnownLocation = location;
                 displayLocation();
             }
         };
@@ -104,31 +106,27 @@ public class Welcome extends FragmentActivity implements OnMapReadyCallback{
         location_switch.setOnCheckedChangeListener(new MaterialAnimatedSwitch.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(boolean isChecked) {
-                if(isChecked){
+                if (isChecked) {
                     displayLocation();
-                    Snackbar.make(mapFragment.getView(),"You are online",Snackbar.LENGTH_SHORT).show();
-                }
-                else
-                {
+                    Snackbar.make(mapFragment.getView(), "You are online", Snackbar.LENGTH_SHORT).show();
+                } else {
                     stopLocationUpdates();
                     mCurrent.remove();
-                    Snackbar.make(mapFragment.getView(),"You are offline",Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(mapFragment.getView(), "You are offline", Snackbar.LENGTH_SHORT).show();
                 }
             }
         });
 
-        drivers= FirebaseDatabase.getInstance().getReference("DriversLocation");
-        geoFire=new GeoFire(drivers);
+        drivers = FirebaseDatabase.getInstance().getReference("DriversLocation");
+        geoFire = new GeoFire(drivers);
 
-        setUpLocation();
     }
 
 
     private void setUpLocation() {
-        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)!= PackageManager.PERMISSION_GRANTED)
-        {
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION},MY_PERMISSION_REQUEST_CODE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, MY_PERMISSION_REQUEST_CODE);
         }
 //        else {
 //            if(checkPlayServices())
@@ -136,14 +134,12 @@ public class Welcome extends FragmentActivity implements OnMapReadyCallback{
     }
 
     private void stopLocationUpdates() {
-        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)!= PackageManager.PERMISSION_GRANTED)
-        {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
-        }
-        else
-        {
+        } else {
             locationManager.removeUpdates(locationListener);
+
         }
     }
 
@@ -151,10 +147,12 @@ public class Welcome extends FragmentActivity implements OnMapReadyCallback{
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         } else {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
             lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
             if (lastKnownLocation != null) {
                 if (location_switch.isChecked()) {
                     final double latitude = lastKnownLocation.getLatitude();
@@ -171,7 +169,8 @@ public class Welcome extends FragmentActivity implements OnMapReadyCallback{
                                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.car))
                                     .position(new LatLng(latitude, longitude))
                                     .title("Your Location"));
-                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 15f));
+
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 15f));
 
                             //Draw animation Rotation
                             rotateMarker(mCurrent, -360, mMap);
@@ -183,40 +182,27 @@ public class Welcome extends FragmentActivity implements OnMapReadyCallback{
     }
 
     private void rotateMarker(final Marker mCurrent, final float i, GoogleMap mMap) {
-        final Handler handler=new Handler();
-        final long start= SystemClock.uptimeMillis();
-        final float startRotation=mCurrent.getRotation();
-        final long duration=1500;
+        final Handler handler = new Handler();
+        final long start = SystemClock.uptimeMillis();
+        final float startRotation = mCurrent.getRotation();
+        final long duration = 1500;
 
-        final Interpolator interpolator=new LinearInterpolator();
+        final Interpolator interpolator = new LinearInterpolator();
         handler.post(new Runnable() {
             @Override
             public void run() {
-                long elapsed=SystemClock.uptimeMillis()-start;
-                float t=interpolator.getInterpolation((float)elapsed/duration);
-                float rot=t*i+(1-t)*startRotation;
-                mCurrent.setRotation(-rot>180?rot/2:rot);
-                if(t<1.0){
-                    handler.postDelayed(this,16);
+                long elapsed = SystemClock.uptimeMillis() - start;
+                float t = interpolator.getInterpolation((float) elapsed / duration);
+                float rot = t * i + (1 - t) * startRotation;
+                mCurrent.setRotation(-rot > 180 ? rot / 2 : rot);
+                if (t < 1.0) {
+                    handler.postDelayed(this, 16);
                 }
 
             }
         });
 
     }
-
-//    private void startLocationUpdates() {
-//        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED &&
-//                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)!= PackageManager.PERMISSION_GRANTED)
-//        {
-//            return;
-//        }
-//        else
-//        {
-//            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest,this);
-//
-//        }
-//    }
-
-
 }
+
+

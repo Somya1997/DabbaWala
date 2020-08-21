@@ -17,14 +17,6 @@ allprojects {
     repositories {
         google()
         jcenter()
-
-        maven {
-            url "https://dl.binary.com/glomadrian/maven"
-        }
-        maven {
-            url 'https://maven.google.com'
-        }
-
     }
 }
 
