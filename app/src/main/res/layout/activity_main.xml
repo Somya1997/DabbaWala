@@ -9,6 +9,16 @@
     android:background="@drawable/background"
     tools:context=".MainActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="60dp"
+        android:text="DELIVERY PARTNER LOGIN"
+        android:textAlignment="center"
+        android:textColor="@color/basePressColor"
+        android:textSize="24sp" />
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_marginTop="10dp"
@@ -25,13 +35,14 @@
             android:layout_marginTop="1dp"
             app:srcCompat="@drawable/logo" />
     </LinearLayout>
+
     <TextView
         android:id="@+id/txt_rider_app"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
-        android:text="LOOKING FOR THE DELIVERY PARTNER APP ?"
+        android:text="LOOKING FOR THE CUSTOMER APP ?"
         android:textSize="14sp"
         android:textColor="@color/bottomText"
         android:layout_width="wrap_content"

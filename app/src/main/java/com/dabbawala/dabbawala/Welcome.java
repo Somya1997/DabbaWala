@@ -25,6 +25,7 @@ import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.dabbawala.dabbawala.Common.Common;
@@ -32,13 +33,6 @@ import com.dabbawala.dabbawala.Remote.IGoogleAPI;
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
 import com.github.kmenager.materialanimatedswitch.MaterialAnimatedSwitch;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApi;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.internal.GoogleApiAvailabilityCache;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -74,6 +68,7 @@ import java.util.Locale;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.GET;
 
 public class Welcome extends FragmentActivity implements OnMapReadyCallback {
 
@@ -82,11 +77,7 @@ public class Welcome extends FragmentActivity implements OnMapReadyCallback {
 
     LocationManager locationManager;
     LocationListener locationListener;
-    //PLay Services
-    private static final int MY_PERMISSION_REQUEST_CODE = 7000;
-    private static final int PLAY_SERVICES_RES_REQUEST = 7001;
 
-    private LocationRequest mLocationRequest;
 
     private Location lastKnownLocation;
 
@@ -235,6 +226,7 @@ public class Welcome extends FragmentActivity implements OnMapReadyCallback {
                     stopLocationUpdates();
                     mCurrent.remove();
                     mMap.clear();
+                    if(handler!=null)
                     handler.removeCallbacks(drawPathRunnable);
                     Snackbar.make(mapFragment.getView(), "You are offline", Snackbar.LENGTH_SHORT).show();
                 }
@@ -259,16 +251,23 @@ public class Welcome extends FragmentActivity implements OnMapReadyCallback {
     }
 
     private void getDirection() {
+        if(lastKnownLocation!=null)
         currentPosition = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+        else
+        {
+            Toast.makeText(this, "You are offline", Toast.LENGTH_SHORT).show();
+            return;
+        }
         String requestAPI = null;
         try {
-            requestAPI = "https://maps.googleapis.com/maps/directions/json?" +
+            requestAPI = "@GET https://maps.googleapis.com/maps/directions/json?" +
                     "mode=driving&" +
                     "transit_routing_preference=less_driving&" +
                     "origin=" + currentPosition.latitude + "," + currentPosition.longitude + "&" +
                     "destination=" + destination + "&" +
                     "key=" + getResources().getString(R.string.google_direction_api);
             Log.d("Sid", requestAPI);
+
           mService.getPath(requestAPI)
                     .enqueue(new Callback<String>() {
                         @Override
@@ -433,11 +432,16 @@ public class Welcome extends FragmentActivity implements OnMapReadyCallback {
                                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 16f));
                                 first_time=false;
                             }
+//
 
                             //Draw animation Rotation
                             rotateMarker(mCurrent, -480, mMap);
                         }
                     });
+                }
+                else
+                {
+                    Toast.makeText(this, "You are Offline", Toast.LENGTH_SHORT).show();
                 }
             }
         }
