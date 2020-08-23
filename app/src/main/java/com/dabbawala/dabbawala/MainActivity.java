@@ -15,8 +15,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dabbawala.dabbawala.Model.Driver;
+//import com.dabbawala.dabbawalauserside.MainCustomer;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
@@ -66,7 +68,8 @@ public class MainActivity extends AppCompatActivity {
         txt_rider_app.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                startActivity(new Intent(MainActivity.this,com.dabbawala.dabbawalauserside.MainActivity.class));
+//                startActivity(new Intent(MainActivity.this, MainCustomer.class));
+
             }
         });
     }
